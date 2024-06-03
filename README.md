@@ -8,10 +8,10 @@ The current version of Granthalay features a functional home page that serves as
 
 ### Features
 
-- **Search Bar**: A prominent search bar at the top of the home page allows users to search for books by title, author, genre, or keywords.
-- **Book Recommendations**: Based on user preferences and browsing history, Granthalay provides personalized book recommendations directly on the home page.
-- **Trending Books**: Display of trending books sourced from NYTimes bestseller lists, giving users insights into popular reads.
-- **Featured Collections**: Curated collections of books based on themes, genres, or special promotions are showcased to pique user interest.
+- **Search Bar**: A prominent search bar at the top of the home page allows users to search for books by title, author, genre, or keywords. (Under Dev)
+- **Popular Books**: Display books uploaded to LibGen in last 1 year. (Dev complete)
+- **Trending Books**: Display of trending books sourced from NYTimes bestseller lists, giving users insights into popular reads.(Under dev)
+- **Featured Collections**: Curated collections of books based on themes, genres, or special promotions are showcased to pique user interest.(Under Dev)
 - **Latest News**: Integration with NYTimes API to display the latest literary news, author interviews, and book reviews.
 - **Quick Links**: Convenient links to popular book categories, allowing users to explore specific genres with ease.
 

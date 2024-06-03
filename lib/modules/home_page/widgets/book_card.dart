@@ -23,24 +23,6 @@ class BookCard extends StatelessWidget {
           child: Column(
             children: [
               _bookCoverImage(),
-              // Flexible(
-              //   child: Text(
-              //     book.title,
-              //     style: const TextStyle(
-              //       fontSize: 14,
-              //       fontWeight: FontWeight.w400,
-              //     ),
-              //   ),
-              // ),
-              // Flexible(
-              //   child: Text(
-              //     book.author,
-              //     style: const TextStyle(
-              //         fontSize: 14,
-              //         fontWeight: FontWeight.w400,
-              //         color: inActiveBottomBarColor),
-              //   ),
-              // )
             ],
           ),
         ),
@@ -49,7 +31,9 @@ class BookCard extends StatelessWidget {
   }
 
   void _onBookCardTapped() {
-    Get.toNamed(AppRoutes.bookView);
+    Get.toNamed(AppRoutes.bookView,arguments: {
+      'book': book.toJson()
+    });
   }
 
   Expanded _bookCoverImage() {

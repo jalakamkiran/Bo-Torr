@@ -71,6 +71,9 @@ flutter:
     - assets/svg/home.svg
     - assets/svg/profile.svg
     - assets/svg/search.svg
+    - assets/svg/book_view/back.svg
+    - assets/svg/book_view/heart_disabled.svg
+    - assets/svg/book_view/heart_enabled.svg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:libgen/home_page/home_page_logic.dart';
-import 'package:libgen/home_page/widgets/book_card.dart';
+import 'package:libgen/modules/home_page/home_page_logic.dart';
+import 'package:libgen/modules/home_page/widgets/book_card.dart';
 
 class ListBooks extends StatelessWidget {
   ListBooks({super.key});

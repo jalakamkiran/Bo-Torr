@@ -4,11 +4,11 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:after_layout/after_layout.dart';
-import 'package:libgen/bottom_navigation_bar/bottom_navigation_bar_view.dart';
-import 'package:libgen/home_page/widgets/book_card.dart';
-import 'package:libgen/home_page/widgets/list_books.dart';
+import 'package:libgen/app_theme.dart';
+import 'package:libgen/modules/bottom_navigation_bar/bottom_navigation_bar_view.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'home_page_logic.dart';
+import 'widgets/list_books.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key}) : super(key: key);
@@ -56,14 +56,8 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
   }
 
   BoxDecoration _backgroundDecoration() {
-    return const BoxDecoration(
-      gradient: LinearGradient(colors: [
-        Color(0xFF232526),
-        Color(0xFF414345),
-      ], stops: [
-        0.3,
-        1.0
-      ], begin: Alignment.topCenter, end: Alignment.bottomCenter),
+    return BoxDecoration(
+      gradient: AppTheme.appGradient,
     );
   }
 

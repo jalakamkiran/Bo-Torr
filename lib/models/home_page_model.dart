@@ -50,6 +50,7 @@ class Books {
   late String language;
   late String coverurl;
   late String topic;
+  late String pages;
 
   Books(
       {required this.id,
@@ -58,6 +59,7 @@ class Books {
       required this.md5,
       required this.language,
       required this.coverurl,
+        required this.pages,
       required this.topic});
 
   Books.fromJson(Map<String, dynamic> json) {
@@ -68,6 +70,7 @@ class Books {
     language = json['language'];
     coverurl = json['coverurl'];
     topic = json['topic'];
+    pages = json['pages'] ?? '';
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +82,7 @@ class Books {
     data['language'] = language;
     data['coverurl'] = coverurl;
     data['topic'] = topic;
+    data['pages'] = pages;
     return data;
   }
 }

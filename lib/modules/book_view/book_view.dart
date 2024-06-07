@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:libgen/app_colors.dart';
 import 'package:libgen/app_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:libgen/common_widgets/app_button.dart';
 import 'package:libgen/models/home_page_model.dart';
 import 'package:libgen/res.dart';
 import 'book_view_logic.dart';
@@ -21,21 +24,69 @@ class BookViewPage extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _topWidget(),
-            Container(
-              height: 500,
-              child: Column(
-                children: [
-                  Row(
-                    children: [
-
-                    ],
-                  )
-                ],
+            Expanded(
+              flex: 4,
+              child: Container(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    _bookInfoItems(),
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20),
+                      child: AppButton(onTap: logic.onReadNowTapped),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Padding _bookInfoItems() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+      child: Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFF151515),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Expanded(child: _buildBookInfo("Pages", logic.book.pages)),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: _buildBookInfo("Rating", "-"),
+              ),
+            ),
+            Expanded(child: _buildBookInfo("Reviews", "-")),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Column _buildBookInfo(String title, String value) {
+    return Column(
+      children: [
+        Text(
+          value,
+          style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+        ),
+        Text(
+          title,
+          style: const TextStyle(
+              fontSize: 14,
+              color: inActiveBottomBarColor,
+              fontWeight: FontWeight.w300),
+        ),
+      ],
     );
   }
 

@@ -29,6 +29,7 @@ class HomePageLogic extends GetxController {
             author: BoneMock.name,
             md5: BoneMock.name,
             language: BoneMock.name,
+            pages: BoneMock.phone,
             coverurl: BoneMock.name,
             topic: BoneMock.name));
   }

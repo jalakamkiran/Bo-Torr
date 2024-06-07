@@ -3,6 +3,8 @@ import 'package:libgen/modules/book_view/book_view_binding.dart';
 import 'package:libgen/modules/book_view/book_view.dart';
 import 'package:libgen/modules/home_page/home_page.dart';
 import 'package:libgen/modules/home_page/home_page_binding.dart';
+import 'package:libgen/modules/pdf_viewer/pdf_viewer_binding.dart';
+import 'package:libgen/modules/pdf_viewer/pdf_viewer_view.dart';
 import 'package:libgen/routes/app_pages.dart';
 import 'package:libgen/routes/app_routes.dart';
 
@@ -17,6 +19,11 @@ class AppPages {
       name: AppRoutes.bookView,
       binding: BookViewBinding(),
       page: () => BookViewPage(),
+    ),
+    GetPage(
+      name: AppRoutes.pdfViewer,
+      binding: PdfViewerBinding(),
+      page: () => PdfViewerPage(),
     ),
   ];
 }

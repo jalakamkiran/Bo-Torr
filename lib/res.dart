@@ -10,6 +10,10 @@ class Res {
  static String favoriteEnabled = "assets/svg/book_view/heart_enabled.svg";
  static String favoriteDisabled = "assets/svg/book_view/heart_disabled.svg";
 
+
+
+ //LottieFiles
+  static String searching = "assets/json/searching.json";
 }
 
 

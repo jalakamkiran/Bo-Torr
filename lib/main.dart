@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       defaultGlobalState: true,
       title: 'Granthalayam',
-      initialRoute: AppRoutes.homePage,
+      initialRoute: AppRoutes.landingPage,
       getPages: AppPages.routes,
       theme: AppTheme.themeData,
       builder: EasyLoading.init(

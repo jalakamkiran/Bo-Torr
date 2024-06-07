@@ -121,7 +121,7 @@ class BookViewPage extends StatelessWidget {
                 child: Text(
                   logic.book.title,
                   style: const TextStyle(
-                      color: Color(0xFFEEEAE6),
+                      color: primaryTextColor,
                       fontSize: 14,
                       fontWeight: FontWeight.bold),
                 ),
@@ -133,7 +133,7 @@ class BookViewPage extends StatelessWidget {
                 child: Text(
                   logic.book.author,
                   style: const TextStyle(
-                      color: Color(0xFFEEEAE6),
+                      color: primaryTextColor,
                       fontSize: 12,
                       fontWeight: FontWeight.bold),
                 ),
@@ -144,6 +144,8 @@ class BookViewPage extends StatelessWidget {
       ),
     );
   }
+
+
 
   BoxDecoration _topWidgetDecoration() {
     return const BoxDecoration(

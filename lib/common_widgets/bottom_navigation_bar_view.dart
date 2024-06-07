@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libgen/app_colors.dart';
+import 'package:libgen/modules/landing_page/landing_page_logic.dart';
 import 'package:libgen/res.dart';
 
-import 'bottom_navigation_bar_logic.dart';
+import '../modules/bottom_navigation_bar/bottom_navigation_bar_logic.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class BottomNavigationBarView extends StatelessWidget {
@@ -14,8 +15,7 @@ class BottomNavigationBarView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 10),
-      child: GetBuilder<BottomNavigationBarLogic>(
-        tag: 'bottom_navigation_bar',
+      child: GetBuilder<LandingPageLogic>(
         builder: (logic) {
           return Container(
             decoration: const BoxDecoration(
@@ -73,7 +73,7 @@ class BottomNavigationBarView extends StatelessWidget {
     );
   }
 
-  Color _computeIsActive(BottomNavigationBarLogic logic, int index) {
+  Color _computeIsActive(LandingPageLogic logic, int index) {
     return logic.bottomNavigationBarItems[index].state ==
             logic.bottomNavigationBarState
         ? Color(0xFFA3C9E2)

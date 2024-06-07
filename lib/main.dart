@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:libgen/app_theme.dart';
+import 'package:libgen/res.dart';
 import 'package:libgen/routes/app_pages.dart';
 import 'package:libgen/routes/app_routes.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -18,7 +19,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       defaultGlobalState: true,
       title: 'Granthalayam',
-      initialRoute: AppRoutes.landingPage,
+      initialRoute: AppRoutes.splashScreen,
       getPages: AppPages.routes,
       theme: AppTheme.themeData,
       builder: EasyLoading.init(

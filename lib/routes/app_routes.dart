@@ -4,4 +4,5 @@ class AppRoutes {
   static String pdfViewer = "/pdf_viewer";
   static String search = "/search";
   static String landingPage = "/landing_page";
+  static String splashScreen = "/splash_screen";
 }

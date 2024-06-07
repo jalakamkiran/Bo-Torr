@@ -33,8 +33,15 @@ class SearchPageView extends StatelessWidget {
       decoration: InputDecoration(
         hintText: "Search by title",
         fillColor: searchBarColor,
+        suffixIcon: InkWell(
+          onTap: logic.onClearPressed,
+          child: const Icon(
+            Icons.clear_rounded,
+            color: inActiveBottomBarColor,
+          ),
+        ),
         filled: true,
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
             color: inActiveBottomBarColor,
             fontSize: 16,
             fontWeight: FontWeight.w300),
@@ -57,26 +64,37 @@ class SearchPageView extends StatelessWidget {
         case SearchPageState.loading:
           return Lottie.asset(Res.searching);
         case SearchPageState.success:
-          return Expanded(
-            child: GridView.builder(
-              gridDelegate:
-              SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-              itemCount: logic.searchResult.length,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
-                  child: BookCard(
-                    book: logic.searchResult[index],
-                  ),
-                );
-              },
-            ),
-          );
+          return _showBooks(logic);
         case SearchPageState.error:
           return Text("Error occured");
         case SearchPageState.idle:
-          return Text("Start searching");
+          return  const Padding(
+            padding: EdgeInsets.symmetric(vertical: 10),
+            child: Column(
+              children: [
+                Text("Start searching to find recommendations",),
+              ],
+            ),
+          );
       }
     });
+  }
+
+  Expanded _showBooks(SearchPageLogic logic) {
+    return Expanded(
+      child: GridView.builder(
+        gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        itemCount: logic.searchResult.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+            child: BookCard(
+              book: logic.searchResult[index],
+            ),
+          );
+        },
+      ),
+    );
   }
 }

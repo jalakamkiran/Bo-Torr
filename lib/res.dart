@@ -14,6 +14,11 @@ class Res {
 
  //LottieFiles
   static String searching = "assets/json/searching.json";
+  static String idle = "assets/json/idle.json";
+
+
+  //rive animations
+  static String bo_torr = "assets/rive/bo-torr.riv";
 }
 
 

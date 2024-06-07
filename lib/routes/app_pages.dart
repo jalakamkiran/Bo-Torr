@@ -9,11 +9,18 @@ import 'package:libgen/modules/pdf_viewer/pdf_viewer_binding.dart';
 import 'package:libgen/modules/pdf_viewer/pdf_viewer_view.dart';
 import 'package:libgen/modules/search_page/search_page_binding.dart';
 import 'package:libgen/modules/search_page/search_page_view.dart';
+import 'package:libgen/modules/splash_screen/splash_screen_binding.dart';
+import 'package:libgen/modules/splash_screen/splash_screen_view.dart';
 import 'package:libgen/routes/app_pages.dart';
 import 'package:libgen/routes/app_routes.dart';
 
 class AppPages {
   static List<GetPage> routes = [
+    GetPage(
+      name: AppRoutes.splashScreen,
+      binding: SplashScreenBinding(),
+      page: () => SplashScreenPage(),
+    ),
     GetPage(
       name: AppRoutes.landingPage,
       binding: LandingPageBinding(),

@@ -48,6 +48,13 @@ class SearchPageLogic extends GetxController {
         searchPageState = SearchPageState.error;
     }
   }
+
+  void onClearPressed() {
+    searchController.clear();
+    searchResult.clear();
+    searchPageState = SearchPageState.idle;
+    update();
+  }
 }
 
 class Debouncer {

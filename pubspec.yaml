@@ -37,6 +37,15 @@ dependencies:
   cupertino_icons: ^1.0.6
   get: ^4.6.6
   flutter_cached_pdfview: ^0.4.2
+  flutter_easyloading: ^3.0.5
+  responsive_framework: ^1.4.0
+  google_fonts: ^6.2.1
+  flutter_svg: ^2.0.10+1
+  intl: ^0.19.0
+  after_layout: ^1.2.0
+  skeletonizer: ^1.2.0
+  lottie: ^3.1.2
+  rive: ^0.13.7
 
 dev_dependencies:
   flutter_test:
@@ -48,14 +57,26 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
-  flutter_easyloading: ^3.0.5
-  responsive_framework: ^1.4.0
-  google_fonts: ^6.2.1
-  flutter_svg: ^2.0.10+1
-  intl: ^0.19.0
-  after_layout: ^1.2.0
-  skeletonizer: ^1.2.0
-  lottie: ^3.1.2
+  flutter_launcher_icons: ^0.13.1
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/png/bo-torr_icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+  web:
+    generate: true
+    image_path: "assets/png/bo-torr_icon.png"
+    background_color: "#hexcode"
+    theme_color: "#hexcode"
+  windows:
+    generate: true
+    image_path: "assets/png/bo-torr_icon.png"
+    icon_size: 48 # min:48, max:256, default: 48
+  macos:
+    generate: true
+    image_path: "assets/png/bo-torr_icon.png"
+
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -77,29 +98,6 @@ flutter:
     - assets/svg/book_view/heart_disabled.svg
     - assets/svg/book_view/heart_enabled.svg
     - assets/json/searching.json
-
-  # An image asset can refer to one or more resolution-specific "variants", see
-  # https://flutter.dev/assets-and-images/#resolution-aware
-
-  # For details regarding adding assets from package dependencies, see
-  # https://flutter.dev/assets-and-images/#from-packages
-
-  # To add custom fonts to your application, add a fonts section here,
-  # in this "flutter" section. Each entry in this list should have a
-  # "family" key with the font family name, and a "fonts" key with a
-  # list giving the asset and other descriptors for the font. For
-  # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
-  #         style: italic
-  #   - family: Trajan Pro
-  #     fonts:
-  #       - asset: fonts/TrajanPro.ttf
-  #       - asset: fonts/TrajanPro_Bold.ttf
-  #         weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages
+    - assets/json/idle.json
+    - assets/rive/bo-torr.riv
+    - assets/png/bo-torr_icon.png

@@ -14,36 +14,41 @@ class BookViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        gradient: AppTheme.appGradient,
-      ),
-      child: SafeArea(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _topWidget(),
-            Expanded(
-              flex: 4,
-              child: Container(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    _bookInfoItems(),
-                    const Spacer(),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: AppButton(onTap: logic.onReadNowTapped),
-                    ),
-                  ],
+    return GetBuilder<BookViewLogic>(builder: (logic) {
+      return Container(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          gradient: AppTheme.appGradient,
+        ),
+        child: SafeArea(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _topWidget(),
+              Expanded(
+                flex: 4,
+                child: Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      _bookInfoItems(),
+                      const Spacer(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: AppButton(
+                          onTap: logic.onReadNowTapped,
+                          isLoading: logic.isLoading,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
   Padding _bookInfoItems() {
@@ -144,8 +149,6 @@ class BookViewPage extends StatelessWidget {
       ),
     );
   }
-
-
 
   BoxDecoration _topWidgetDecoration() {
     return const BoxDecoration(

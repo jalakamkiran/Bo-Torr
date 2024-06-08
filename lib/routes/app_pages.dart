@@ -5,6 +5,8 @@ import 'package:libgen/modules/home_page/home_page.dart';
 import 'package:libgen/modules/home_page/home_page_binding.dart';
 import 'package:libgen/modules/landing_page/landing_page_binding.dart';
 import 'package:libgen/modules/landing_page/landing_page.dart';
+import 'package:libgen/modules/link_viewer/link_viewer.dart';
+import 'package:libgen/modules/link_viewer/link_viewer_binding.dart';
 import 'package:libgen/modules/pdf_viewer/pdf_viewer_binding.dart';
 import 'package:libgen/modules/pdf_viewer/pdf_viewer_view.dart';
 import 'package:libgen/modules/search_page/search_page_binding.dart';
@@ -45,6 +47,11 @@ class AppPages {
       name: AppRoutes.search,
       binding: SearchPageBinding(),
       page: () => SearchPageView(),
+    ),
+    GetPage(
+      name: AppRoutes.linkViewer,
+      binding: LinkViewerBinding(),
+      page: () => LinkViewer(),
     ),
   ];
 }

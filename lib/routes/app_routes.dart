@@ -5,4 +5,5 @@ class AppRoutes {
   static String search = "/search";
   static String landingPage = "/landing_page";
   static String splashScreen = "/splash_screen";
+  static String linkViewer = "/link_viewer";
 }

@@ -17,6 +17,7 @@ class PdfViewerLogic extends GetxController {
   void onAfterlayout() {
     var arguments = Get.arguments;
     downloadUrl = arguments['downloadUrl'];
+    isLoading = false;
   }
 
 

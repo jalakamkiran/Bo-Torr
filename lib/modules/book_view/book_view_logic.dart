@@ -8,6 +8,16 @@ import 'package:libgen/routes/app_routes.dart';
 class BookViewLogic extends GetxController {
   late Books book;
 
+  bool _isLoading = false;
+
+
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    update();
+  }
+
   @override
   void onInit() {
     var arguments = Get.arguments;
@@ -17,12 +27,14 @@ class BookViewLogic extends GetxController {
   }
 
   onReadNowTapped() async {
+    isLoading = true;
     BookDownloadModel bookDownloadModel =
         await BookViewRepository().bookDownloadUrl(book.md5);
     switch (bookDownloadModel.apiResponse.responseState) {
       case ResponseState.success:
-        Get.toNamed(AppRoutes.pdfViewer,
-            arguments: {'downloadUrl': bookDownloadModel.downloadLink});
+        Get.toNamed(AppRoutes.linkViewer,
+            arguments: {'downloadUrls': bookDownloadModel.downloadLink});
+        isLoading = false;
         break;
       default:
       //handle api errors

@@ -46,6 +46,7 @@ dependencies:
   skeletonizer: ^1.2.0
   lottie: ^3.1.2
   rive: ^0.13.7
+  url_launcher: ^6.3.0
 
 dev_dependencies:
   flutter_test:
@@ -101,3 +102,5 @@ flutter:
     - assets/json/idle.json
     - assets/rive/bo-torr.riv
     - assets/png/bo-torr_icon.png
+    - assets/rive/fetching_book.riv
+    - assets/rive/network_error.json

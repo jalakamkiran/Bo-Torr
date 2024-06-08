@@ -19,6 +19,8 @@ class Res {
 
   //rive animations
   static String bo_torr = "assets/rive/bo-torr.riv";
+  static String fetchingBook = "assets/rive/fetching_book.riv";
+  static String networkError = "assets/rive/network_error.json";
 }
 
 

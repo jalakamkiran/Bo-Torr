@@ -67,7 +67,7 @@ class Books {
     title = json['title'];
     author = json['author'];
     md5 = json['md5'];
-    language = json['language'];
+    language = json['language'] ?? "English";
     coverurl = json['coverurl'];
     topic = json['topic'];
     pages = json['pages'] ?? '';

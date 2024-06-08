@@ -125,6 +125,8 @@ class BookViewPage extends StatelessWidget {
               Flexible(
                 child: Text(
                   logic.book.title,
+                  textAlign: TextAlign.center
+                  ,
                   style: const TextStyle(
                       color: primaryTextColor,
                       fontSize: 14,

@@ -33,7 +33,7 @@ class BookViewLogic extends GetxController {
     switch (bookDownloadModel.apiResponse.responseState) {
       case ResponseState.success:
         Get.toNamed(AppRoutes.linkViewer,
-            arguments: {'downloadUrls': bookDownloadModel.downloadLink});
+            arguments: {'downloadUrls': bookDownloadModel.downloadLink,'totalPages':book.pages});
         isLoading = false;
         break;
       default:

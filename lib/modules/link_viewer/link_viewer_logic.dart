@@ -8,10 +8,12 @@ class LinkViewerLogic extends GetxController {
   var arguments = Get.arguments;
 
   late List<dynamic> downloadUrls;
+  late String pages;
 
   @override
   void onInit() {
     downloadUrls = arguments['downloadUrls'];
+    pages = arguments['totalPages'];
     super.onInit();
   }
 
@@ -21,7 +23,8 @@ class LinkViewerLogic extends GetxController {
     }
     else{
       Get.toNamed(AppRoutes.pdfViewer, arguments: {
-        'downloadUrl':url
+        'downloadUrl':url,
+        'totalPages':pages
       });
     }
   }
@@ -55,5 +58,16 @@ class LinkViewerLogic extends GetxController {
         ),
       ),
     ));
+  }
+
+  computeBannerMessage(int index) {
+    String url = downloadUrls[index].toString();
+    if(url.contains("libgen.rs")){
+      return "Ads";
+    }
+    else if(url.contains(".lol")){
+      return "Recmd.";
+    }
+    return "Direct";
   }
 }

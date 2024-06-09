@@ -30,42 +30,56 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
         child: GetBuilder<PdfViewerLogic>(
           builder: (logic) {
             if (logic.isLoading) {
-              return  Column(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RiveAnimation.asset(Res.fetchingBook)
-                ],
-              );
+              return _loadingWidget();
             }
             return PDF().cachedFromUrl(
               logic.downloadUrl,
-              placeholder: (double progress){
-                Get.log("progress is $progress");
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(child: RiveAnimation.asset(Res.fetchingBook))
-                  ],
-                );
+              placeholder: (double progress) {
+                return _downloadInProgress(logic, progress);
               },
-              errorWidget: (error) {
-                Get.log("Error is $error");
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Expanded(
-                        flex: 3,
-                        child: LottieBuilder.asset(Res.networkError,fit: BoxFit.fitWidth,))
-                  ],
-                );
-              },
+              errorWidget:_errorWidget,
             );
           },
         ),
       ),
+    );
+  }
+
+  Column _loadingWidget() {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [RiveAnimation.asset(Res.fetchingBook)],
+    );
+  }
+
+  Widget _errorWidget(error) {
+    Get.log("Error is $error");
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Expanded(
+            flex: 3,
+            child: LottieBuilder.asset(
+              Res.networkError,
+              fit: BoxFit.fitWidth,
+            ))
+      ],
+    );
+  }
+
+  Column _downloadInProgress(PdfViewerLogic logic, double progress) {
+    logic.calculatePagesDownloaded(progress);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        const Spacer(),
+        Expanded(child: RiveAnimation.asset(Res.fetchingBook)),
+        Text("${logic.pageProgress}/${logic.totalPages} Pages downloaded"),
+        const Spacer(),
+      ],
     );
   }
 

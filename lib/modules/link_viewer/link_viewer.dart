@@ -48,9 +48,7 @@ class _LinkViewerState extends State<LinkViewer> {
           child: ClipRRect(
             child: Banner(
               location: BannerLocation.topEnd,
-              message: logic.downloadUrls[index].toString().contains("libgen.rs")
-                  ? 'Ads'
-                  : "Direct",
+              message: logic.computeBannerMessage(index),
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 5, horizontal: 5),
                 child: Text(

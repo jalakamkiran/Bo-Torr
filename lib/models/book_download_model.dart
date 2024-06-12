@@ -7,7 +7,7 @@ BookDownloadModel bookDownloadModelFromJson(ApiResponse apiResponse) {
 }
 
 class BookDownloadModel {
-  late List<dynamic> downloadLink;
+  late String downloadLink;
   late ApiResponse apiResponse;
 
   BookDownloadModel({required this.downloadLink,required this.apiResponse});

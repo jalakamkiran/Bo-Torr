@@ -10,7 +10,6 @@ class BookViewLogic extends GetxController {
 
   bool _isLoading = false;
 
-
   bool get isLoading => _isLoading;
 
   set isLoading(bool value) {
@@ -32,8 +31,11 @@ class BookViewLogic extends GetxController {
         await BookViewRepository().bookDownloadUrl(book.md5);
     switch (bookDownloadModel.apiResponse.responseState) {
       case ResponseState.success:
-        Get.toNamed(AppRoutes.linkViewer,
-            arguments: {'downloadUrls': bookDownloadModel.downloadLink,'totalPages':book.pages});
+        Get.toNamed(AppRoutes.pdfViewer, arguments: {
+          'downloadUrl': bookDownloadModel.downloadLink,
+          'totalPages': book.pages,
+          'md5': book.md5
+        });
         isLoading = false;
         break;
       default:

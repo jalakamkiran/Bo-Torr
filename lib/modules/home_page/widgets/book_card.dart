@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libgen/app_colors.dart';
@@ -12,7 +13,7 @@ class BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: _onBookCardTapped,
       child: Material(
         elevation: 5,
@@ -31,22 +32,27 @@ class BookCard extends StatelessWidget {
   }
 
   void _onBookCardTapped() {
-    Get.toNamed(AppRoutes.bookView,arguments: {
-      'book': book.toJson()
-    });
+    Get.toNamed(
+      AppRoutes.bookView,
+      arguments: {'book': book.toJson()},
+    );
   }
 
-  Expanded _bookCoverImage() {
+  Widget _bookCoverImage() {
     return Expanded(
       child: Skeleton.replace(
         height: double.infinity,
         width: double.infinity,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(10),
-          child: Image.network(
-            loadingBuilder: _onloadingBuilder,
-            book.coverurl,
-            fit: BoxFit.fill,
+          child: Hero(
+            tag: book,
+            transitionOnUserGestures: true,
+            child: CachedNetworkImage(
+              fadeInCurve: Curves.easeIn,
+              imageUrl: book.coverurl,
+              fit: BoxFit.fill,
+            ),
           ),
         ),
       ),

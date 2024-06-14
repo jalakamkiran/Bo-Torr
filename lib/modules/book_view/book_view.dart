@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,9 +6,9 @@ import 'package:libgen/app_colors.dart';
 import 'package:libgen/app_theme.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:libgen/common_widgets/app_button.dart';
-import 'package:libgen/models/home_page_model.dart';
 import 'package:libgen/res.dart';
 import 'book_view_logic.dart';
+import 'package:flutter/scheduler.dart';
 
 class BookViewPage extends StatelessWidget {
   final logic = Get.find<BookViewLogic>();
@@ -114,9 +115,8 @@ class BookViewPage extends StatelessWidget {
                 flex: 6,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.network(
-                      logic.book.coverurl,
-                      fit: BoxFit.scaleDown,
+                    child: CachedNetworkImage(
+                      imageUrl: logic.book.coverurl,
                     )),
               ),
               const SizedBox(
@@ -125,8 +125,7 @@ class BookViewPage extends StatelessWidget {
               Flexible(
                 child: Text(
                   logic.book.title,
-                  textAlign: TextAlign.center
-                  ,
+                  textAlign: TextAlign.center,
                   style: const TextStyle(
                       color: primaryTextColor,
                       fontSize: 14,

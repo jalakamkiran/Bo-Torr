@@ -13,14 +13,8 @@ class HomePageModel {
   HomePageModel.decodeResponse(ApiResponse apiResponse) {
     switch (apiResponse.responseState) {
       case ResponseState.success:
-        try {
-          parseJson(jsonDecode(apiResponse.apiResponse));
-          this.apiResponse = apiResponse..responseState = ResponseState.success;
-        } catch (e) {
-          this.apiResponse = apiResponse
-            ..responseState = ResponseState.jsonParsingError
-            ..exception = e.toString();
-        }
+        parseJson(jsonDecode(apiResponse.apiResponse));
+        this.apiResponse = apiResponse..responseState = ResponseState.success;
       default:
         this.apiResponse = apiResponse;
     }
@@ -65,7 +59,7 @@ class Books {
   Books.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
-    author = json['author'];
+    author = json['author'] ?? "";
     md5 = json['md5'];
     language = json['language'] ?? "English";
     coverurl = json['coverurl'];

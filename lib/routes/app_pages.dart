@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libgen/modules/book_view/book_view_binding.dart';
 import 'package:libgen/modules/book_view/book_view.dart';
@@ -36,6 +39,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.bookView,
       binding: BookViewBinding(),
+      customTransition: SmoothTransition(),
+      transition: Transition.noTransition,
+      curve: Curves.linear,
+      transitionDuration: Duration(milliseconds: 200),
       page: () => BookViewPage(),
     ),
     GetPage(
@@ -55,3 +62,38 @@ class AppPages {
     ),
   ];
 }
+
+class NoTransition extends CustomTransition {
+  @override
+  Widget buildTransition(
+    BuildContext context,
+    Curve? curve,
+    Alignment? alignment,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return child;
+  }
+}
+
+class SmoothTransition extends CustomTransition {
+  @override
+  Widget buildTransition(
+    BuildContext context,
+    Curve? curve,
+    Alignment? alignment,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return  FadeTransition(
+      opacity: animation,
+      child: ScaleTransition(
+        scale: animation,
+        child: child,
+      ),
+    );
+  }
+}
+

@@ -115,8 +115,11 @@ class BookViewPage extends StatelessWidget {
                 flex: 6,
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: CachedNetworkImage(
-                      imageUrl: logic.book.coverurl,
+                    child: Hero(
+                      tag: logic.book,
+                      child: CachedNetworkImage(
+                        imageUrl: logic.book.coverurl,
+                      ),
                     )),
               ),
               const SizedBox(

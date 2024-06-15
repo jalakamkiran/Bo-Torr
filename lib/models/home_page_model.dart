@@ -13,8 +13,14 @@ class HomePageModel {
   HomePageModel.decodeResponse(ApiResponse apiResponse) {
     switch (apiResponse.responseState) {
       case ResponseState.success:
-        parseJson(jsonDecode(apiResponse.apiResponse));
-        this.apiResponse = apiResponse..responseState = ResponseState.success;
+        try {
+          parseJson(jsonDecode(apiResponse.apiResponse));
+          this.apiResponse = apiResponse..responseState = ResponseState.success;
+        } catch (e) {
+          this.apiResponse = apiResponse
+            ..responseState = ResponseState.jsonParsingError
+            ..exception = e.toString();
+        }
       default:
         this.apiResponse = apiResponse;
     }

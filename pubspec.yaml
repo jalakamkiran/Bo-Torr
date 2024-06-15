@@ -50,6 +50,9 @@ dependencies:
   vocsy_epub_viewer: ^2.0.0
   path_provider: ^2.0.2
   cached_network_image: ^3.3.1
+  feedback_sentry: ^3.0.0
+  sentry_flutter: ^7.20.2
+
 
 
 dev_dependencies:

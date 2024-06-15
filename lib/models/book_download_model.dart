@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:libgen/models/api_response.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 BookDownloadModel bookDownloadModelFromJson(ApiResponse apiResponse) {
   return BookDownloadModel.decodeResponse(apiResponse);
@@ -19,10 +20,11 @@ class BookDownloadModel {
         try {
           parseJson(jsonDecode(apiResponse.apiResponse));
           this.apiResponse = apiResponse..responseState = ResponseState.success;
-        } catch (e) {
+        } catch (e,trace) {
           this.apiResponse = apiResponse
             ..responseState = ResponseState.jsonParsingError
             ..exception = e.toString();
+          Sentry.captureException(e,stackTrace: trace);
         }
       default:
         this.apiResponse = apiResponse;

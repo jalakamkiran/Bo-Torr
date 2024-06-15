@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:libgen/app_colors.dart';
+import 'package:libgen/common_widgets/report_bug.dart';
 import 'package:libgen/modules/home_page/widgets/book_card.dart';
 import 'package:libgen/res.dart';
 import 'search_page_logic.dart';
@@ -18,7 +19,14 @@ class SearchPageView extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
       child: Column(
         children: [
-          _searchTextField(),
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: _searchTextField()),
+              const SizedBox(width: 20,),
+              ReportBug(),
+            ],
+          ),
           _body(),
         ],
       ),

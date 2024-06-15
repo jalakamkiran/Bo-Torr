@@ -16,7 +16,6 @@ import 'package:libgen/modules/search_page/search_page_binding.dart';
 import 'package:libgen/modules/search_page/search_page_view.dart';
 import 'package:libgen/modules/splash_screen/splash_screen_binding.dart';
 import 'package:libgen/modules/splash_screen/splash_screen_view.dart';
-import 'package:libgen/routes/app_pages.dart';
 import 'package:libgen/routes/app_routes.dart';
 
 class AppPages {

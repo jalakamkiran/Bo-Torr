@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:after_layout/after_layout.dart';
 import 'package:libgen/app_theme.dart';
-import 'package:libgen/common_widgets/bottom_navigation_bar_view.dart';
+import 'package:libgen/common_widgets/report_bug.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 import 'home_page_logic.dart';
 import 'widgets/list_books.dart';
@@ -36,10 +36,22 @@ class _HomePageState extends State<HomePage> with AfterLayoutMixin {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "Popular",
-                    style:
-                    TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            "Popular",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Spacer(),
+                        ReportBug(),
+                      ],
+                    ),
                   ),
                   ListBooks(),
                 ],

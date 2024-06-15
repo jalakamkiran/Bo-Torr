@@ -1,3 +1,6 @@
+import 'dart:math';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libgen/modules/book_view/book_view_binding.dart';
 import 'package:libgen/modules/book_view/book_view.dart';
@@ -13,7 +16,6 @@ import 'package:libgen/modules/search_page/search_page_binding.dart';
 import 'package:libgen/modules/search_page/search_page_view.dart';
 import 'package:libgen/modules/splash_screen/splash_screen_binding.dart';
 import 'package:libgen/modules/splash_screen/splash_screen_view.dart';
-import 'package:libgen/routes/app_pages.dart';
 import 'package:libgen/routes/app_routes.dart';
 
 class AppPages {
@@ -36,6 +38,10 @@ class AppPages {
     GetPage(
       name: AppRoutes.bookView,
       binding: BookViewBinding(),
+      customTransition: SmoothTransition(),
+      transition: Transition.noTransition,
+      curve: Curves.linear,
+      transitionDuration: Duration(milliseconds: 200),
       page: () => BookViewPage(),
     ),
     GetPage(
@@ -55,3 +61,38 @@ class AppPages {
     ),
   ];
 }
+
+class NoTransition extends CustomTransition {
+  @override
+  Widget buildTransition(
+    BuildContext context,
+    Curve? curve,
+    Alignment? alignment,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return child;
+  }
+}
+
+class SmoothTransition extends CustomTransition {
+  @override
+  Widget buildTransition(
+    BuildContext context,
+    Curve? curve,
+    Alignment? alignment,
+    Animation<double> animation,
+    Animation<double> secondaryAnimation,
+    Widget child,
+  ) {
+    return  FadeTransition(
+      opacity: animation,
+      child: ScaleTransition(
+        scale: animation,
+        child: child,
+      ),
+    );
+  }
+}
+

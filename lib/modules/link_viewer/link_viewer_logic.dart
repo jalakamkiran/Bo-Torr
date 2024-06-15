@@ -9,11 +9,13 @@ class LinkViewerLogic extends GetxController {
 
   late List<dynamic> downloadUrls;
   late String pages;
+  late String md5;
 
   @override
   void onInit() {
     downloadUrls = arguments['downloadUrls'];
     pages = arguments['totalPages'];
+    md5 = arguments['md5'];
     super.onInit();
   }
 
@@ -24,7 +26,8 @@ class LinkViewerLogic extends GetxController {
     else{
       Get.toNamed(AppRoutes.pdfViewer, arguments: {
         'downloadUrl':url,
-        'totalPages':pages
+        'totalPages':pages,
+        'md5': md5
       });
     }
   }

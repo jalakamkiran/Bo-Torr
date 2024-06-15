@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:libgen/res.dart';
 import 'package:libgen/routes/app_routes.dart';
 
 enum BottomNavigationBarState { home, search, library, profile }
-
 
 class LandingPageLogic extends GetxController {
   BottomNavigationBarState _bottomNavigationBarState =
@@ -43,6 +43,12 @@ class LandingPageLogic extends GetxController {
   void onItemTapped(int index) {
     bottomNavigationBarState = bottomNavigationBarItems[index].state;
   }
+
+  @override
+  void onInit() async {
+    bool result = await InternetConnection().hasInternetAccess;
+    if (!result) bottomNavigationBarState = BottomNavigationBarState.library;
+  }
 }
 
 class BottomNavigationBarModel {
@@ -52,5 +58,8 @@ class BottomNavigationBarModel {
   String route;
 
   BottomNavigationBarModel(
-      {required this.title, required this.icon, required this.state,required this.route});
+      {required this.title,
+      required this.icon,
+      required this.state,
+      required this.route});
 }

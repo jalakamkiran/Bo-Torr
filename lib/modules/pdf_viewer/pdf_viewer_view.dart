@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:after_layout/after_layout.dart';
@@ -29,27 +28,40 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
         ),
         child: GetBuilder<PdfViewerLogic>(
           builder: (logic) {
-            if (logic.isLoading) {
-              return _loadingWidget();
+            if (logic.filePath.contains("pdf")) {
+              return _onViewPdf(logic);
+            } else {
+              return _onViewEpub(logic);
             }
-            return PDF().cachedFromUrl(
-              logic.downloadUrl,
-              placeholder: (double progress) {
-                return _downloadInProgress(logic, progress);
-              },
-              errorWidget:_errorWidget,
-            );
           },
         ),
       ),
     );
   }
 
+  _onViewEpub(PdfViewerLogic logic) {
+    if (logic.isLoading) {
+      return _loadingWidget();
+    }
+    return SizedBox();
+  }
+
+  Widget _onViewPdf(PdfViewerLogic logic) {
+    if (logic.isLoading) {
+      return _loadingWidget();
+    } else {
+      return PDF().fromAsset(
+        logic.filePath,
+        errorWidget: _errorWidget,
+      );
+    }
+  }
+
   Column _loadingWidget() {
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [RiveAnimation.asset(Res.fetchingBook)],
+      children: [Expanded(child: RiveAnimation.asset(Res.fetchingBook))],
     );
   }
 
@@ -77,14 +89,12 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
       children: [
         const Spacer(),
         Expanded(child: RiveAnimation.asset(Res.fetchingBook)),
-        Text("${logic.pageProgress}/${logic.totalPages} Pages downloaded"),
+        Text(logic.fetchProgressText()),
         const Spacer(),
       ],
     );
   }
 
   @override
-  FutureOr<void> afterFirstLayout(BuildContext context) {
-    logic.onAfterlayout();
-  }
+  FutureOr<void> afterFirstLayout(BuildContext context) {}
 }

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:libgen/app_theme.dart';
 import 'package:libgen/common_widgets/bottom_navigation_bar_view.dart';
 import 'package:libgen/modules/home_page/home_page.dart';
+import 'package:libgen/modules/library/library_view.dart';
 import 'package:libgen/modules/search_page/search_page_view.dart';
 
 import 'landing_page_logic.dart';
@@ -26,7 +27,7 @@ class LandingPage extends StatelessWidget {
                 case BottomNavigationBarState.search:
                   return SearchPageView();
                 case BottomNavigationBarState.library:
-                  return const Center(child: Text("Library"));
+                  return LibraryPage();
                 case BottomNavigationBarState.profile:
                   return const Center(child: Text("Profile"));
                 default:

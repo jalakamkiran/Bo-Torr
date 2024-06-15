@@ -1,4 +1,6 @@
+import 'package:feedback/feedback.dart';
 import 'package:get/get.dart';
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
 import 'package:libgen/data/repository/home_page_repository.dart';
 import 'package:libgen/models/api_response.dart';
 import 'package:libgen/models/home_page_model.dart';
@@ -71,7 +73,21 @@ class HomePageLogic extends GetxController {
   }
 
   onAfterlayout() async {
-    _addFakeBooks();
-    await fetchRecomendedBooks();
+    bool result = await InternetConnection().hasInternetAccess;
+    if(!result){
+      homePageState = HomePageState.error;
+    }
+    else{
+      if(books.isEmpty){
+        _addFakeBooks();
+        await fetchRecomendedBooks();
+      }
+      else{
+        homePageState = HomePageState.success;
+      }
+    }
+
   }
+
+
 }

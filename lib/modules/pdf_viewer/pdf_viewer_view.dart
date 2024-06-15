@@ -28,7 +28,7 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
         ),
         child: GetBuilder<PdfViewerLogic>(
           builder: (logic) {
-            if (logic.downloadUrl.contains("pdf")) {
+            if (logic.filePath.contains("pdf")) {
               return _onViewPdf(logic);
             } else {
               return _onViewEpub(logic);
@@ -47,13 +47,14 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
   }
 
   Widget _onViewPdf(PdfViewerLogic logic) {
-    return PDF().cachedFromUrl(
-      logic.downloadUrl,
-      placeholder: (double progress) {
-        return _downloadInProgress(logic, progress);
-      },
-      errorWidget: _errorWidget,
-    );
+    if (logic.isLoading) {
+      return _loadingWidget();
+    } else {
+      return PDF().fromAsset(
+        logic.filePath,
+        errorWidget: _errorWidget,
+      );
+    }
   }
 
   Column _loadingWidget() {
@@ -95,6 +96,5 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
   }
 
   @override
-  FutureOr<void> afterFirstLayout(BuildContext context) {
-  }
+  FutureOr<void> afterFirstLayout(BuildContext context) {}
 }

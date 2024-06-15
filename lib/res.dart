@@ -15,6 +15,7 @@ class Res {
  //LottieFiles
   static String searching = "assets/json/searching.json";
   static String idle = "assets/json/idle.json";
+  static String noDownload = "assets/json/no_downloads.json";
 
 
   //rive animations

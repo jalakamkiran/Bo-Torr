@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:sentry_flutter/sentry_flutter.dart';
 
 initializeSdk() async {
-  if(true){
+  if(kReleaseMode){
     await SentryFlutter.init(
           (options) {
         options.dsn = 'https://4ddb02a25e66ec1419b3d217a37a8124@o4507434457235456.ingest.de.sentry.io/4507434465820752';
@@ -26,4 +27,5 @@ initializeSdk() async {
       return false;
     };
   }
+  await initLocalStorage();
 }

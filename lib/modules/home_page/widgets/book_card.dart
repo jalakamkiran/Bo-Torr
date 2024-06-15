@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:libgen/app_colors.dart';
 import 'package:libgen/models/home_page_model.dart';
+import 'package:libgen/modules/utils/book_data.dart';
 import 'package:libgen/routes/app_routes.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 

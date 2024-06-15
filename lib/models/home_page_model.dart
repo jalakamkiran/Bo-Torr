@@ -38,7 +38,7 @@ class HomePageModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['books'] = books.map((v) => v.toJson()).toList();
-      return data;
+    return data;
   }
 }
 
@@ -59,7 +59,7 @@ class Books {
       required this.md5,
       required this.language,
       required this.coverurl,
-        required this.pages,
+      required this.pages,
       required this.topic});
 
   Books.fromJson(Map<String, dynamic> json) {

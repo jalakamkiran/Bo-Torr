@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:libgen/models/home_page_model.dart';
 import 'package:libgen/modules/home_page/home_page_logic.dart';
 import 'package:libgen/modules/home_page/widgets/book_card.dart';
 
 class ListBooks extends StatelessWidget {
-  ListBooks({super.key});
 
-  final logic = Get.find<HomePageLogic>();
+  List<Books> books;
+
+  ListBooks({super.key,required this.books});
 
   @override
   Widget build(BuildContext context) {
@@ -14,12 +16,12 @@ class ListBooks extends StatelessWidget {
       child: GridView.builder(
         gridDelegate:
             SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        itemCount: logic.books.length,
+        itemCount: books.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
             child: BookCard(
-              book: logic.books[index],
+              book: books[index],
             ),
           );
         },

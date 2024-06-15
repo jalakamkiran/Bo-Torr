@@ -52,7 +52,8 @@ dependencies:
   cached_network_image: ^3.3.1
   feedback_sentry: ^3.0.0
   sentry_flutter: ^7.20.2
-
+  localstorage: ^5.0.0
+  internet_connection_checker_plus: ^2.3.0
 
 
 dev_dependencies:
@@ -92,3 +93,4 @@ flutter:
     - assets/png/bo-torr_icon.png
     - assets/rive/fetching_book.riv
     - assets/rive/network_error.json
+    - assets/json/no_downloads.json

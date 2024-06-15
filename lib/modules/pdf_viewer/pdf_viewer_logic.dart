@@ -1,9 +1,16 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker_plus/internet_connection_checker_plus.dart';
+import 'package:libgen/models/home_page_model.dart';
+import 'package:libgen/modules/utils/local_files_fetcher.dart';
+import 'package:localstorage/localstorage.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+import 'package:sentry_flutter/sentry_flutter.dart';
 import 'package:vocsy_epub_viewer/epub_viewer.dart';
 
 class PdfViewerLogic extends GetxController {
@@ -28,57 +35,51 @@ class PdfViewerLogic extends GetxController {
   String filePath = "";
 
   late String downloadUrl;
-  late String totalPages;
-  late String md5;
+
+  late Books books;
 
   @override
-  void onInit() {
+  void onInit() async{
     var arguments = Get.arguments;
     downloadUrl = arguments['downloadUrl'];
-    totalPages = arguments['totalPages'];
-    md5 = arguments['md5'];
-    if (!downloadUrl.contains("pdf")) {
-      downloadEpub();
+    books = arguments['books'];
+    bool result = await InternetConnection().hasInternetAccess;
+    if(result){
+      checkForFileCache(downloadUrl.split('.').last);
     }
+    else{
+      //fetch file name from md5
+      filePath = await LocalFilesFetcher.fetchLocalBookFromMd5(books.md5);
+      _onFileExists();
+      isLoading = false;
+    }
+
     super.onInit();
   }
 
   calculatePagesDownloaded(double downloadPercentage) {
     try {
       pageProgress =
-          ((downloadPercentage / 100) * int.parse(totalPages)).round();
+          ((downloadPercentage / 100) * int.parse(books.pages)).round();
     } catch (e, s) {}
   }
 
-  downloadEpub() async {
-    isLoading = true;
 
+
+  checkForFileCache(String extension)async{
+    isLoading = true;
     try {
       final directory = await getApplicationDocumentsDirectory();
-      filePath = path.join(directory.path, '$md5.epub');
+      filePath = path.join(directory.path, '${books.md5}.$extension');
       final file = File(filePath);
-
-      if (await file.exists()) {
-        Get.back();
-        VocsyEpub.setConfig(
-          identifier: "iosBook",
-          scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
-          allowSharing: true,
-          enableTts: true,
-          nightMode: true,
-        );
-        VocsyEpub.open(
-          filePath
-        );
-
-      } else {
-        // Send a GET request to the provided URL
-        await _onFileNotExists(file);
+      if(await file.exists()){
+        _onFileExists();
       }
-    } catch (e) {
-      // Handle any errors
-      print('Error downloading file: $e');
-      return "";
+      else{
+        _onFileNotExists(file);
+      }
+    } catch (e, s) {
+      Sentry.captureException(e,stackTrace: s);
     }
   }
 
@@ -92,17 +93,7 @@ class PdfViewerLogic extends GetxController {
       // Write the file to the local storage
 
       await file.writeAsBytes(response.bodyBytes);
-      Get.back();
-      VocsyEpub.setConfig(
-        identifier: "iosBook",
-        scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
-        allowSharing: true,
-        enableTts: true,
-        nightMode: true,
-      );
-      VocsyEpub.open(
-          filePath
-      );
+      _onFileExists();
     } else {
       throw Exception('Failed to download file');
     }
@@ -110,9 +101,37 @@ class PdfViewerLogic extends GetxController {
 
   String fetchProgressText() {
     try {
-      return "${pageProgress}/${totalPages} Pages downloaded";
+      return "${pageProgress}/${books.pages} Pages downloaded";
     } on Exception {
       return "";
     }
+  }
+
+  void _onFileExists() {
+    localStorage.setItem(filePath, jsonEncode(books.toJson()));
+    if (!filePath.contains("pdf")) {
+      showEpub();
+    }
+    else{
+      showPdf();
+    }
+  }
+
+  void showEpub(){
+    Get.back();
+    VocsyEpub.setConfig(
+      identifier: "iosBook",
+      scrollDirection: EpubScrollDirection.ALLDIRECTIONS,
+      allowSharing: true,
+      enableTts: true,
+      nightMode: true,
+    );
+    VocsyEpub.open(
+        filePath
+    );
+  }
+
+  void showPdf(){
+    isLoading = false;
   }
 }

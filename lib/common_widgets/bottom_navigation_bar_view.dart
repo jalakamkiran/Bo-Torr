@@ -13,63 +13,60 @@ class BottomNavigationBarView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: GetBuilder<LandingPageLogic>(
-        builder: (logic) {
-          return Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: inActiveBottomBarColor,
-                ),
+    return GetBuilder<LandingPageLogic>(
+      builder: (logic) {
+        return Container(
+          decoration: const BoxDecoration(
+            border: Border(
+              top: BorderSide(
+                color: inActiveBottomBarColor,
               ),
             ),
-            padding: const EdgeInsets.only(top: 15),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: List.generate(
-                logic.bottomNavigationBarItems.length,
-                (index) {
-                  return Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 18, vertical: 0),
-                      child: InkWell(
-                        customBorder: CircleBorder(),
-                        onTap: () {
-                          logic.onItemTapped(index);
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SvgPicture.asset(
-                              logic.bottomNavigationBarItems[index].icon,
-                              theme: SvgTheme(
-                                  currentColor: _computeIsActive(logic, index)),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 10),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: List.generate(
+              logic.bottomNavigationBarItems.length,
+              (index) {
+                return Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 18, vertical: 0),
+                    child: InkWell(
+                      customBorder: CircleBorder(),
+                      onTap: () {
+                        logic.onItemTapped(index);
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            logic.bottomNavigationBarItems[index].icon,
+                            theme: SvgTheme(
+                                currentColor: _computeIsActive(logic, index)),
+                          ),
+                          const SizedBox(
+                            height: 3,
+                          ),
+                          Flexible(
+                            child: Text(
+                              logic.bottomNavigationBarItems[index].title,
+                              style: TextStyle(
+                                  color: _computeIsActive(logic, index),
+                                  letterSpacing: 0.8),
                             ),
-                            const SizedBox(
-                              height: 3,
-                            ),
-                            Flexible(
-                              child: Text(
-                                logic.bottomNavigationBarItems[index].title,
-                                style: TextStyle(
-                                    color: _computeIsActive(logic, index),
-                                    letterSpacing: 0.8),
-                              ),
-                            )
-                          ],
-                        ),
+                          )
+                        ],
                       ),
                     ),
-                  );
-                },
-              ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

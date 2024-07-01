@@ -33,11 +33,6 @@ class LandingPageLogic extends GetxController {
         icon: Res.book_icon,
         route: AppRoutes.homePage,
         state: BottomNavigationBarState.library),
-    BottomNavigationBarModel(
-        title: 'Profile',
-        icon: Res.profile_icon,
-        route: AppRoutes.homePage,
-        state: BottomNavigationBarState.profile),
   ];
 
   void onItemTapped(int index) {

@@ -8,6 +8,12 @@ HomePageModel homePageModelFromJson(ApiResponse apiResponse) {
 
 class HomePageModel {
   late List<Books> books;
+  late int totalItems;
+  late int totalPages;
+  late int currentPage;
+  late int pageSize;
+  late int? nextPage;
+  late int? prevPage;
   late ApiResponse apiResponse;
 
   HomePageModel.decodeResponse(ApiResponse apiResponse) {
@@ -27,12 +33,18 @@ class HomePageModel {
   }
 
   parseJson(Map<String, dynamic> json) {
-    if (json['books'] != null) {
+    if (json['data'] != null) {
       books = <Books>[];
-      json['books'].forEach((v) {
+      json['data'].forEach((v) {
         books.add(new Books.fromJson(v));
       });
     }
+    totalItems = json['total_items'];
+    totalPages = json['total_pages'];
+    currentPage = json['current_page'];
+    pageSize = json['page_size'];
+    nextPage = json['next_page'];
+    prevPage = json['prev_page'];
   }
 
   Map<String, dynamic> toJson() {

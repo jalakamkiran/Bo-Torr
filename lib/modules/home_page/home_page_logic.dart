@@ -65,9 +65,11 @@ class HomePageLogic extends GetxController {
     String toDateString = dateFormat.format(toDate);
 
     // Create the map
-    Map<String, String> dateMap = {
+    Map<String, dynamic> dateMap = {
       'fromDate': "2023-01-03",
-      'toDate': toDateString
+      'toDate': toDateString,
+      "page":2,
+      "page_size":20
     };
     return dateMap;
   }

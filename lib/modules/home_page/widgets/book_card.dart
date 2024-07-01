@@ -9,8 +9,10 @@ import 'package:skeletonizer/skeletonizer.dart';
 
 class BookCard extends StatelessWidget {
   Books book;
+  bool considerInfiniteConstraints;
 
-  BookCard({super.key, required this.book});
+  BookCard(
+      {super.key, required this.book, this.considerInfiniteConstraints = true});
 
   @override
   Widget build(BuildContext context) {
@@ -41,18 +43,20 @@ class BookCard extends StatelessWidget {
 
   Widget _bookCoverImage() {
     return Expanded(
-      child: Skeleton.replace(
-        height: double.infinity,
-        width: double.infinity,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Hero(
-            tag: book,
-            transitionOnUserGestures: true,
-            child: CachedNetworkImage(
-              fadeInCurve: Curves.easeIn,
-              imageUrl: book.coverurl,
-              fit: BoxFit.fill,
+      child: IntrinsicWidth(
+        child: Skeleton.replace(
+          height: double.infinity,
+          width: double.infinity,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: Hero(
+              tag: book,
+              transitionOnUserGestures: true,
+              child: CachedNetworkImage(
+                fadeInCurve: Curves.easeIn,
+                imageUrl: book.coverurl,
+                fit: BoxFit.fill,
+              ),
             ),
           ),
         ),

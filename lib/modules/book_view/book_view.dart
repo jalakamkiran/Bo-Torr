@@ -173,22 +173,25 @@ class BookViewPage extends StatelessWidget {
               Get.back();
             },
             child: _topBarIconBuilder(Res.back)),
-        _topBarIconBuilder(Res.favoriteDisabled),
+        _topBarIconBuilder(logic.isFavorite ? Res.favoriteEnabled : Res.favoriteDisabled,onTap: logic.onFavoriteTapped),
       ],
     );
   }
 
-  Container _topBarIconBuilder(String icon) {
-    return Container(
-      decoration: const BoxDecoration(
-        shape: BoxShape.circle,
-        color: Color(0xFF754B32),
-      ),
-      padding: EdgeInsets.all(5),
-      child: SvgPicture.asset(
-        icon,
-        theme: const SvgTheme(
-          currentColor: Colors.white,
+  Widget _topBarIconBuilder(String icon, {Function()? onTap}) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        decoration: const BoxDecoration(
+          shape: BoxShape.circle,
+          color: Color(0xFF754B32),
+        ),
+        padding: EdgeInsets.all(5),
+        child: SvgPicture.asset(
+          icon,
+          theme: const SvgTheme(
+            currentColor: Colors.white,
+          ),
         ),
       ),
     );

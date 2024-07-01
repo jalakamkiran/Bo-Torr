@@ -1,28 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:libgen/models/home_page_model.dart';
-import 'package:libgen/modules/home_page/home_page_logic.dart';
 import 'package:libgen/modules/home_page/widgets/book_card.dart';
+import 'package:libgen/modules/home_page/widgets/list_books.dart';
 
-class ListBooks extends StatelessWidget {
-
+class Favorites extends StatelessWidget {
   List<Books> books;
 
-  ListBooks({super.key,required this.books});
+  Favorites({super.key, required this.books});
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      flex: 3,
-      child: GridView.builder(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
         itemCount: books.length,
+        shrinkWrap: true,
         itemBuilder: (context, index) {
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 5,vertical: 5),
             child: BookCard(
               book: books[index],
+              considerInfiniteConstraints: false,
             ),
           );
         },

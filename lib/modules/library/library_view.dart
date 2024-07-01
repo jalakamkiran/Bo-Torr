@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 import 'package:libgen/app_theme.dart';
 import 'package:libgen/common_widgets/report_bug.dart';
 import 'package:libgen/modules/home_page/widgets/list_books.dart';
+import 'package:libgen/modules/library/widgets/favorites.dart';
 import 'package:libgen/res.dart';
 import 'package:lottie/lottie.dart';
 
@@ -20,20 +21,22 @@ class LibraryPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<LibraryLogic>(builder: (logic) {
       return Container(
+        height: double.infinity,
         decoration: _backgroundDecoration(),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const Padding(
                 padding: EdgeInsets.symmetric(vertical: 15),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Flexible(
                       child: Text(
-                        "Downloads",
+                        "Library",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
@@ -43,17 +46,44 @@ class LibraryPage extends StatelessWidget {
                   ],
                 ),
               ),
-              !logic.isLoading
-                  ? ListBooks(books: logic.downloads)
-                  : Expanded(child: _noDownloads() ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: InkWell(
-                    onTap: (){
-                      logic.onRefresh();
-                    },
-                    child: Text("Refresh")),
-              )
+              const Flexible(
+                child: Text(
+                  "Favorites",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                ),
+              ),
+              const SizedBox(height: 10,),
+              if (!logic.isLoading) ...[
+                Expanded(
+                  flex: 3,
+                  child: Favorites(
+                    books: logic.books,
+                  ),
+                ),
+                const SizedBox(height: 20,),
+                const Flexible(
+                  child: Text(
+                    "Downloads",
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400),
+                  ),
+                ),
+                ListBooks(books: logic.downloads)
+              ],
+              if (logic.isLoading)
+                Expanded(
+                  flex: 3,
+                  child: _noDownloads(),
+                ),
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20),
+                  child: InkWell(
+                      onTap: () {
+                        logic.onRefresh();
+                      },
+                      child: Text("Refresh")),
+                ),
+              ),
             ],
           ),
         ),
@@ -63,11 +93,12 @@ class LibraryPage extends StatelessWidget {
 
   Column _noDownloads() {
     return Column(
-      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         const Spacer(),
         Lottie.asset(Res.noDownload),
-        Text("No downloads yet. Start reading some books."),
+        const Flexible(
+            child: Text("No downloads yet. Start reading some books.")),
         const Spacer(),
       ],
     );

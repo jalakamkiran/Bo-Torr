@@ -5,6 +5,7 @@ import 'package:libgen/models/api_response.dart';
 import 'package:libgen/models/book_download_model.dart';
 import 'package:libgen/models/home_page_model.dart';
 import 'package:libgen/modules/utils/book_data.dart';
+import 'package:libgen/modules/utils/local_files_fetcher.dart';
 import 'package:libgen/routes/app_routes.dart';
 
 class BookViewLogic extends GetxController {
@@ -19,12 +20,22 @@ class BookViewLogic extends GetxController {
     update();
   }
 
+  bool _isFavorite = false;
+
+  bool get isFavorite => _isFavorite;
+
+  set isFavorite(bool value) {
+    _isFavorite = value;
+    update();
+  }
+
   @override
-  void onInit() {
+  void onInit() async{
     var arguments = Get.arguments;
     if (arguments['book'] != null) {
       book = Books.fromJson(arguments['book']);
     }
+    isFavorite = await LocalFilesFetcher.checkIfFavorite(book);
   }
 
   onReadNowTapped() async {
@@ -36,10 +47,8 @@ class BookViewLogic extends GetxController {
       await _downloadBook();
     } else {
       //Internet is not there so fetch from local
-      Get.toNamed(AppRoutes.pdfViewer, arguments: {
-        'downloadUrl': '',
-        'books': bookData.selectedBook
-      });
+      Get.toNamed(AppRoutes.pdfViewer,
+          arguments: {'downloadUrl': '', 'books': bookData.selectedBook});
       isLoading = false;
     }
   }
@@ -58,6 +67,17 @@ class BookViewLogic extends GetxController {
       default:
         break;
       //hanbreakdle api errors
+    }
+  }
+
+  void onFavoriteTapped() async {
+    if(await LocalFilesFetcher.checkIfFavorite(book)){
+      await LocalFilesFetcher.removeFavorite(book);
+      isFavorite = false;
+    }
+    else{
+      await LocalFilesFetcher.setFavoriteBooks(book);
+      isFavorite = true;
     }
   }
 }

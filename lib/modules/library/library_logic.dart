@@ -14,14 +14,18 @@ class LibraryLogic extends GetxController {
     update();
   }
 
+  late List<Books> books;
+
   @override
   void onInit() async{
     await onRefresh();
+    isLoading = false;
   }
 
   Future<void> onRefresh() async {
      isLoading = true;
     downloads = await LocalFilesFetcher.fetchDownloadedFiles();
-    isLoading = false;
+     books = await LocalFilesFetcher.fetchFavoriteBooks();
+     isLoading = false;
   }
 }

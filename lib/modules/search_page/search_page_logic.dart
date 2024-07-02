@@ -6,6 +6,7 @@ import 'package:libgen/data/repository/home_page_repository.dart';
 import 'package:libgen/data/repository/search_repository.dart';
 import 'package:libgen/models/api_response.dart';
 import 'package:libgen/models/home_page_model.dart';
+import 'package:libgen/models/search_model.dart';
 
 enum SearchPageState { loading, success, error ,idle}
 
@@ -35,7 +36,7 @@ class SearchPageLogic extends GetxController {
   _searchBooks(String title)async{
     searchPageState = SearchPageState.loading;
     await Future.delayed(Duration(seconds: 2));
-    HomePageModel homePageModel =
+    SearchModel homePageModel =
         await SearchRepository().searchForBook(title);
     switch (homePageModel.apiResponse.responseState) {
       case ResponseState.success:

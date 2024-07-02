@@ -32,6 +32,16 @@ class PdfViewerLogic extends GetxController {
     _pageProgress = value;
   }
 
+  String _downloadProgress = "";
+
+  String get downloadProgress => _downloadProgress;
+
+  set downloadProgress(String value) {
+    _downloadProgress = value;
+    update();
+  }
+
+
   String filePath = "";
 
   late String downloadUrl;
@@ -84,19 +94,29 @@ class PdfViewerLogic extends GetxController {
   }
 
   Future<void> _onFileNotExists(File file) async {
-    final response = await http.get(Uri.parse(downloadUrl));
+    final http.StreamedResponse response = await http.Client().send(http.Request('GET',Uri.parse(downloadUrl)));
+    int total = response.contentLength ?? 0;
+    int recieved = 0;
+    List<int> bodyBytes = [];
+    response.stream.listen((data){
+      Get.log(total.toString());
+      bodyBytes.addAll(data);
+      recieved += data.length;
+      downloadProgress = "${(recieved/1048576).toStringAsFixed(2)}/${(total/1048576).toStringAsFixed(2)} MB";
+    }).onDone(()async{
+      // Check if the request was successful
+      if (response.statusCode == 200) {
+        // Get the directory to save the file
 
-    // Check if the request was successful
-    if (response.statusCode == 200) {
-      // Get the directory to save the file
+        // Write the file to the local storage
 
-      // Write the file to the local storage
+        await file.writeAsBytes(bodyBytes);
+        _onFileExists();
+      } else {
+        throw Exception('Failed to download file');
+      }
+    });
 
-      await file.writeAsBytes(response.bodyBytes);
-      _onFileExists();
-    } else {
-      throw Exception('Failed to download file');
-    }
   }
 
   String fetchProgressText() {

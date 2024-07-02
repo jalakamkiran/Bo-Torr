@@ -61,7 +61,17 @@ class _PdfViewerPageState extends State<PdfViewerPage> with AfterLayoutMixin {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [Expanded(child: RiveAnimation.asset(Res.fetchingBook))],
+      children: [
+        const Spacer(),
+        Expanded(child: RiveAnimation.asset(Res.fetchingBook)),
+        Text(
+          logic.downloadProgress,
+          style: const TextStyle(
+            color: Colors.white,
+          ),
+        ),
+        const Spacer(),
+      ],
     );
   }
 
